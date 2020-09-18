@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <div class="header">
+        <h1><a href="/">RF-Doc-Browser</a></h1>
+    </div>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="content">
+        <div class="sidebar">
+            <dl>
+                {% for file in file_index %}
+                    <dt><a href="/page?file={{file}}">{{file}}</a></li>
+                {% endfor %}
+            </dl>
+            
+        </div>
+        <div class="content-window">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
