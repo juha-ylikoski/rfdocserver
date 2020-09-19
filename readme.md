@@ -13,4 +13,4 @@ You will need to install some python3 dependencies for this project to work. Thi
 
 This project should be run as python3 module.
 
-`python3 -m src/rf-doc-server <path to robot file root>`
+`python3 -m src.rf-doc-server <path to robot file root>`
