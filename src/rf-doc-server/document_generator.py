@@ -60,14 +60,3 @@ def get_keywords(file):
     doc = LibraryDocumentation(file)
     return doc.keywords
 
-if __name__ == "__main__":
-    files = recursively_find_files([".robot", ".py"], "files")
-    # os.makedirs("tmp", exist_ok=True)
-    # for f in files:
-    f = "files\\python_library.py"
-    # LibraryDocumentation(f).save("tmp\\files\\test.html", "html")
-    print(generate_documentation(f))
-    
-    # for f in files:
-    #     get_keywords(f)
-
