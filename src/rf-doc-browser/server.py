@@ -14,7 +14,7 @@ class RF_doc_browser:
 
     @property
     def index(self):
-        index = document_generator.recursively_find_files(".robot", self.directory)
+        index = document_generator.recursively_find_files([".robot", ".py"], [".pyc"], self.directory)
         print(index)
         return index
     
@@ -42,6 +42,7 @@ class RF_doc_browser:
 def create_app():
     rf_doc_browser = RF_doc_browser("files")
     app = Flask(__name__)
+    rf_doc_browser.index
     
     @app.context_processor
     def context_processor():
@@ -64,9 +65,7 @@ def create_app():
     @app.route("/documentation")
     def documentation():
         target_file = request.args.get("file")
-        document_generator.generate_documentation(target_file, "tmp/files/test.html")
-        with open("tmp/files/test.html") as f:
-            return f.read()
+        return document_generator.generate_documentation(target_file)
 
     @app.route("/search", methods=['POST'])
     def search_redirect():
