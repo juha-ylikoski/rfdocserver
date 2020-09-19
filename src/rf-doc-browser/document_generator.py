@@ -21,9 +21,16 @@ def recursively_find_files(regexs, path):
 def generate_documentation(file, out):
     LibraryDocumentation(file).save(out, "html")
 
+def get_keywords(file):
+    doc = LibraryDocumentation(file)
+    return doc.keywords
+
 if __name__ == "__main__":
     files = recursively_find_files([".robot", ".py"], "files")
-    os.makedirs("tmp", exist_ok=True)
-    for f in files:
-        LibraryDocumentation(f).save(os.path.join("tmp", os.path.splitext(f)[0] + ".html"), "html")
+    # os.makedirs("tmp", exist_ok=True)
+    # for f in files:
+    f = "files\\test_copy.robot"
+    LibraryDocumentation(f).save("tmp\\files\\test.html", "html")
+    # for f in files:
+    #     get_keywords(f)
 

@@ -6,11 +6,27 @@
 {% endblock %}}
 
 {% block body %}
-<h1>Foo</h1>
-<ul>
-    {% for file in files %}
-    <li><a href="/page?file={{file}}">{{file}}</a></li>
-    {% endfor %}
-</ul>
+<h1>Found files</h1>
+
+{% for file in files %}
+    <h2><a href="/page?file={{file}}">{{file}}</a></h2>
+<table>
+    <tr>
+        <th>Keyword</th>
+        <th>Arguments</th>
+        <th>Tags</th>
+        <th>Documentation</th>
+    </tr>
+    {% for keyword in get_keyword(file) %}
+
+    <tr>
+        <td class="name"><a href="/page?file={{keyword.source}}#{{keyword.name.replace(' ', '%20')}}">{{keyword.name}}</a></td>
+        <td class="args">{{",\n".join(keyword.args)}}</td>
+        <td class="tags">{{",\n".join(keyword.tags)}}</td>
+        <td class="doc">{{keyword.doc}}</td>
+    </tr>
+        {% endfor %}
+</table>
+{% endfor %}    
 
 {% endblock %}

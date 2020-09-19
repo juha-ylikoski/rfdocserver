@@ -1,7 +1,6 @@
 body {
     margin: 0;
     font-family: sans-serif;
-    color: red;
 }
 
 .header {
@@ -9,9 +8,56 @@ body {
     top: 0; 
     left: 0; 
     right: 0; 
-    height: 100px; 
+    height: 70px; 
     background-color: lime;
 }
+.flex-container {
+    display: flex;
+    align-items: stretch;
+    background-color: #f1f1f1;
+    height: 100%;
+}
+
+.flex-container > div {
+    background-color: DodgerBlue;
+    color: white;
+    margin: 10px;
+    text-align: center;
+    font-size: 30px;
+    top: 50%;
+}
+
+.search_input {
+    height: 70%;
+    width: 70%;
+    min-width: 70%;
+}
+
+.search_button {
+    top: 50%;
+}
+
+table {
+    border-collapse: collapse;
+}
+  
+table, td, th {
+    border: 1px solid black;
+}
+.name {
+    width: 30%;
+}
+.args {
+    width: 10%;
+}
+.tags {
+    width: 10%;
+}
+
+.doc {
+    width: 50%;
+}
+
 .content {
     position: absolute; 
     top: 100px; 
@@ -21,20 +67,47 @@ body {
     bottom: 0; 
 }
 .sidebar {
-    position: absolute; 
+    position: absolute;
     top: 0; 
     left: 0; 
-    right: 0; 
     width: 20%; 
-    bottom: 0; 
-    background-color: lightsteelblue;
-    overflow: auto;
+    overflow-y: auto;
+    max-height: 100%;
 }
-.side-bar iframe {
-    display: block; 
-    width: 100%; 
-    height: 100%; 
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
     border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+  
+.active, .collapsible:hover {
+    background-color: #ccc;
+}
+
+.collapsible:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+  }
+
+.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+  }  
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
 }
 
 .content-window {
@@ -42,8 +115,10 @@ body {
     top: 0; 
     left: 20%; 
     right: 0; 
-    width: 80%; 
-    bottom: 0; 
+    width: 80%;
+    height: 100%;
+    bottom: 0;
+    overflow: visible;
 }
 
 .robot-documentation {
@@ -53,7 +128,6 @@ body {
     right: 0; 
     width: 100%; 
     bottom: 0; 
-    background-color: blue 
 }
 .robot-documentation iframe {
     display: block; 

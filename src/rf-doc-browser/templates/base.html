@@ -4,20 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width= , initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-    <div class="header">
-        <h1><a href="/">RF-Doc-Browser</a></h1>
-    </div>
     {% block head %}{% endblock %}
 </head>
 <body>
+    <div class="header">
+        <div class="flex-container">
+            <div style="flex-grow: 3">
+                <a href="/">RF-Doc-Browser</a>
+            </div>
+            <div class="search-bar", style="flex-grow: 7">
+                <form action="/search" method="POST">
+                    <input class="search_input", type="text", name="search_input", placeholder="Search..">
+                    <input class="search_button", type="image", src="{{ url_for('static', filename='search_icon.png') }}", width=20, height="20">
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
     <div class="content">
         <div class="sidebar">
-            <dl>
-                {% for file in file_index %}
-                    <dt><a href="/page?file={{file}}">{{file}}</a></li>
-                {% endfor %}
-            </dl>
+            <h1>File index</h1>
             
+            {% for file in file_index %}
+            <button class="collapsible"><a href="/page?file={{file}}#{{keyword}}">{{file}}</a></button>
+            <div class="panel">
+                {% for keyword in get_keyword_names(file) %}
+                <p><a href="/page?file={{file}}#{{keyword.replace(' ', '%20')}}">{{keyword}}</a></p>
+                {% endfor %}
+              </div>
+            {% endfor %}
+            
+            <script>
+            var acc = document.getElementsByClassName("collapsible");
+            var i;
+            
+            for (i = 0; i < acc.length; i++) {
+              acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                  panel.style.maxHeight = null;
+                } else {
+                  panel.style.maxHeight = panel.scrollHeight + "px";
+                } 
+              });
+            }
+            </script>
         </div>
         <div class="content-window">
             {% block body %}{% endblock %}

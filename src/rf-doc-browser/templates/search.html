@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+
+{% endblock %}}
+
+{% block body %}
+<table>
+    <tr>
+        <th>Keyword</th>
+        <th>Arguments</th>
+        <th>Tags</th>
+        <th>Documentation</th>
+    </tr>
+    {% for result in search_results %}
+    <tr>
+        <td class="name"><a href="/page?file={{result.source}}#{{result.name.replace(' ', '%20')}}">{{result.name}}</a></td>
+        <td class="args">{{",\n".join(result.args)}}</td>
+        <td class="tags">{{",\n".join(result.tags)}}</td>
+        <td class="doc">{{result.doc}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+{% endblock %}
