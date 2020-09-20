@@ -20,6 +20,7 @@ import os
 import re
 import argparse
 from bs4 import BeautifulSoup
+from waitress import serve
 
 
 from . import document_generator
@@ -117,8 +118,7 @@ def create_app(directory):
     
 
 
-    app.run()
-    return app
+    serve(app, host="0.0.0.0", port=5000)
 
 def main():
     argument_parser = argparse.ArgumentParser()
