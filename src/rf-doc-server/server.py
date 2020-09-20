@@ -15,10 +15,12 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, Markup
 import os
 import re
 import argparse
+from bs4 import BeautifulSoup
+
 
 from . import document_generator
 
@@ -73,7 +75,35 @@ def create_app(directory):
     @app.route("/page")
     def page():
         target_file = request.args.get("file")
-        return render_template("page.html", iframe="/documentation?file={}".format(target_file))
+        documentation = document_generator.generate_documentation(target_file)
+        soup = BeautifulSoup(documentation, features="html.parser")
+        head = soup.head
+        head_styles = []
+        for style in head.find_all("style"):
+            head_styles.append(Markup(style))
+
+        head_scripts = []
+        for script in head.find_all("script"):
+            head_scripts.append(Markup(script))
+
+        body = soup.body
+        body_divs = [Markup(soup.body.find_all("div", id="javascript-disabled")[0])]
+        
+        body_scripts = []
+        for script in body.find_all("script"):
+            if "id" in script.attrs.keys():
+                if script.attrs["id"] == "base-template":
+                    script = str(script).split("\n")
+                    script = [script[0]] + ['<div class="content">', '<div class="content-window">'] + script[1:-1] + ["</div>", "</div>"] + [script[-1]]
+                    script = "\n".join(script)
+            body_scripts.append(Markup(script))
+
+        return render_template("page.html",
+                                head_styles=head_styles,
+                                head_scripts=head_scripts,
+                                body_divs=body_divs,
+                                body_scripts=body_scripts
+                                )
 
     @app.route("/documentation")
     def documentation():
