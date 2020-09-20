@@ -23,7 +23,7 @@
     </div>
 
     <div class="content">
-        <div class="sidebar">
+        <div class="sidebar", style="z-index: 1">
             <h1>File index</h1>
             
             {% for file in file_index %}
@@ -35,7 +35,7 @@
               </div>
             {% endfor %}
             
-            <script>
+            <script type="text/javascript">
             var acc = document.getElementsByClassName("collapsible");
             var i;
             
