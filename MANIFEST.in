@@ -1,0 +1,4 @@
+recursive-include rf_doc_server *.css
+recursive-include rf_doc_server *.png
+recursive-include rf_doc_server *.html
+recursive-include rf_doc_server *.py

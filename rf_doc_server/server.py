@@ -22,7 +22,7 @@ import argparse
 from bs4 import BeautifulSoup
 from waitress import serve
 
-
+from ._version import __version__, __version_info__
 from . import document_generator
 
 
@@ -120,10 +120,15 @@ def create_app(directory):
 
     serve(app, host="0.0.0.0", port=5000)
 
+def version():
+    return "rf-doc-server {}".format(__version__)
+
 def main():
     argument_parser = argparse.ArgumentParser()
     argument_parser.add_argument("robot_files")
+    argument_parser.add_argument("-v", "--version", action='version', version=version())
     args = argument_parser.parse_args()
+
     create_app(args.robot_files)
 
 if __name__ == "__main__":
