@@ -10,14 +10,13 @@
     <div class="header">
         <div class="flex-container">
             <div style="flex-grow: 3">
-                <a href="/">RF-Doc-Server</a>
+                <a href="/">RF Doc Server</a>
             </div>
             <div class="search-bar", style="flex-grow: 7">
                 <form action="/search" method="POST">
                     <input class="search_input", type="text", name="search_input", placeholder="Search..">
                     <input class="search_button", type="image", src="{{ url_for('static', filename='search_icon.png') }}", width=20, height="20">
                 </form>
-                
             </div>
         </div>
     </div>

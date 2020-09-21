@@ -1,22 +1,29 @@
 import setuptools
-from rf_doc_server._version import __version__
+from rfdocserver._version import __version__
 with open("readme.md", "r") as fh:
     long_description = fh.read()
 
+
+with open("requirements.txt", "r") as f:
+    requirements = f.read().split("\n")
+
 setuptools.setup(
-    name="juha-ylikoski",
+    name="rfdocserver",
     version=__version__,
     author="Juha Ylikoski",
     author_email="juha.ylikoski14@outlook.com",
     description="Web server for hosting robot framework documentation",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/juha-ylikoski/rf-doc-server",
+    url="https://github.com/juha-ylikoski/rfdocserver",
     packages=setuptools.find_packages(),
+    include_package_data=True,
+    install_requires=requirements,
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: GPL-3.0 License",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
+        "Framework :: Flask"
     ],
     python_requires='>=3.6',
 )

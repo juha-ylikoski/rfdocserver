@@ -121,10 +121,10 @@ def create_app(directory):
     serve(app, host="0.0.0.0", port=5000)
 
 def version():
-    return "rf-doc-server {}".format(__version__)
+    return "rfdocserver {}".format(__version__)
 
 def main():
-    argument_parser = argparse.ArgumentParser()
+    argument_parser = argparse.ArgumentParser(usage="usage: rfdocserver.py [-h] [-v] robot_files")
     argument_parser.add_argument("robot_files")
     argument_parser.add_argument("-v", "--version", action='version', version=version())
     args = argument_parser.parse_args()
