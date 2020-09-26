@@ -17,6 +17,7 @@
 
 from robot.libdocpkg import LibraryDocumentation
 import os
+import sys
 import re
 from tempfile import mkstemp
 
@@ -60,3 +61,5 @@ def get_keywords(file):
     doc = LibraryDocumentation(file)
     return doc.keywords
 
+def get_documentation(file):
+    return LibraryDocumentation(file)
