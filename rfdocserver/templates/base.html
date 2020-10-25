@@ -13,14 +13,22 @@
                 <div style="flex-grow: 3">
                     <a class="black-link", href="/">RF Doc Server<img class="logo" src=" {{ url_for('static', filename='logo-32px.png') }}", style="padding-left: 5px;"></a>
                 </div>
-                <div class="search-bar", style="flex-grow: 7">
+                <div class="search-bar flex-container", style="flex-grow: 7">
+                    <div style="flex-grow: 9;">
                     <form action="/search" method="POST">
-                        <input class="search_input", type="text", name="search_input", placeholder="Search..">
+                        <input class="search_input", type="text", name="search_input", placeholder="Search..", value="{{ rf_doc_server.search_field_content }}">
                         <input class="search_button", type="image", src="{{ url_for('static', filename='search_icon.png') }}", width=20, height="20">
                     </form>
+                    </div>
+                    <div style="flex-grow: 1;">
+                        <div class="tooltip">
+                            <a class="force_reload",  href="/reload"><img class="logo" src=" {{ url_for('static', filename='reload_32px.png') }}", style="padding-left: 5px;"></a>
+                            <span class="tooltiptext">Force reload index</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="links", style="flex-grow: 1;">
-                    <a class="black-link", href="https://github.com/juha-ylikoski/rfdocserver">View on github<img src=" {{ url_for('static', filename='GitHub-Mark-32px.png') }}"></a>
+                    <a class="black-link", href="https://github.com/juha-ylikoski/rfdocserver">View on github<img class="logo" src=" {{ url_for('static', filename='GitHub-Mark-32px.png') }}"></a>
                 </div>
             </div>
         </div>

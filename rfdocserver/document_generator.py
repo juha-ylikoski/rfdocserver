@@ -20,7 +20,11 @@ import os
 import sys
 import re
 from tempfile import mkstemp
+import logging
 
+
+class LibdocError(Exception):
+    pass
 
 def recursively_find_files(whitelist, blacklist, path):
     file_paths = []
@@ -50,7 +54,11 @@ def generate_documentation(file):
     """
     # Using tempfile is required because robot libdoc wants path-like-object
     fd, fname = mkstemp()
-    LibraryDocumentation(file).save(fname, "html")
+    try:
+        LibraryDocumentation(file).save(fname, "html")
+    except Exception as e:
+        logging.warning("Was not able to generate documentation for {}. Got error {}".format(file, e))
+        raise LibdocError(str(e))
     with open(fname, "r") as f:
         content = f.read()
     os.close(fd)
@@ -62,4 +70,9 @@ def get_keywords(file):
     return doc.keywords
 
 def get_documentation(file):
-    return LibraryDocumentation(file)
+    try:
+        return LibraryDocumentation(file)
+    except Exception as e:
+        logging.warning("Was not able to generate documentation for {}. Got error {}".format(file, e))
+        raise LibdocError(str(e))
+
