@@ -6,27 +6,31 @@
 {% endblock %}}
 
 {% block body %}
-<h1>Found files</h1>
 
-{% for file in files %}
-    <h2><a href="/page?file={{file}}">{{file}}</a></h2>
-<table>
-    <tr>
-        <th>Keyword</th>
-        <th>Arguments</th>
-        <th>Tags</th>
-        <th>Documentation</th>
-    </tr>
-    {% for keyword in get_keyword(file) %}
-
-    <tr>
-        <td class="name"><a href="/page?file={{keyword.source}}#{{keyword.name.replace(' ', '%20')}}">{{keyword.name}}</a></td>
-        <td class="args">{{",\n".join(keyword.args)}}</td>
-        <td class="tags">{{",\n".join(keyword.tags)}}</td>
-        <td class="doc">{{keyword.doc}}</td>
-    </tr>
+<div class="libraries">
+    <h1>Libraries</h1>
+    <table class="grid-table", style="width: 80%;">
+        {% for library in rf_doc_server.get_libraries() %}
+        <tr class="grid-table">
+            <td class="grid-table", style="width: 20%;"><a href="{{ rf_doc_server.get_link_to_library(library.rf_hub_name) }}">{{library.name}}</a></td>
+            <td class="grid-table", style="width: 10%;">{{ rf_doc_server.get_keyword_count(library) }} keywords</td>
+            <td class="grid-table", style="width: 70%;">{{ rf_doc_server.get_synopsis(library) }}</td>
+        </tr>
         {% endfor %}
-</table>
-{% endfor %}    
+    </table>
+</div>
+
+<div class="resource-files">
+    <h1>Resource Files</h1>
+    <table class="grid-table", style="width: 80%;">
+        {% for resource_file in rf_doc_server.get_resource_files() %}
+        <tr>
+            <td class="grid-table", style="width: 20%;"><a href="{{ rf_doc_server.get_link_to_library(resource_file.rf_hub_name) }}">{{resource_file.name}}</a></td>
+            <td class="grid-table", style="width: 10%;">{{ rf_doc_server.get_keyword_count(resource_file) }} keywords</td>
+            <td class="grid-table", style="width: 70%;">{{ rf_doc_server.get_synopsis(resource_file) }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 
 {% endblock %}
