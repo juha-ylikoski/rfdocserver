@@ -192,15 +192,6 @@ def create_app(directory, debug=False, include_robot_libraries=True, include=[],
 
     @app.route("/page")
     def page():
-        def finditer_replace(text, reg, rep):
-            print(type(text), type(reg), type(rep))
-            cursor_pos = 0
-            output = ''
-            for match in reg.finditer(text):
-                output += "".join([text[cursor_pos:match.start(1)], rep])
-                cursor_pos = match.end(1)
-            output += "".join([text[cursor_pos:]])
-            return output
         target_file = request.args.get("file")
         try:
             documentation = document_generator.generate_documentation(target_file)
