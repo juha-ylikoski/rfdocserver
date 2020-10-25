@@ -34,8 +34,9 @@ from . import document_generator
 
 class RF_doc_server:
     def __init__(self, directory, include_robot_libraries=True, include=[], no_cache=False):
-        if directory.startswith(".\\") or directory.startswith("./"):
-            directory = directory[2:]
+        if directory:
+            if directory.startswith(".\\") or directory.startswith("./"):
+                directory = directory[2:]
         self._include_robot_libraries = include_robot_libraries
         self.directory = directory
         self._index = None
@@ -99,7 +100,10 @@ class RF_doc_server:
 
     @property
     def index(self):
-        index = document_generator.recursively_find_files([".robot", ".py"], [".pyc"], self.directory)
+        if self.directory:
+            index = document_generator.recursively_find_files([".robot", ".py"], [".pyc"], self.directory)
+        else:
+            index = []
         if self._include_robot_libraries:
             dirname = os.path.dirname(robot_libraries.__file__)
             for item in os.listdir(dirname):
@@ -243,7 +247,7 @@ def version():
 
 def main():
     argument_parser = argparse.ArgumentParser(usage="usage: rfdocserver.py [-h] [-v] robot_files")
-    argument_parser.add_argument("robot_files")
+    argument_parser.add_argument("--robot_files", help="Directory in which robot resource files or libraries exist.")
     argument_parser.add_argument("-v", "--version", action='version', version=version())
     argument_parser.add_argument("--debug", action='store_true', help="Start the server with debug mode.")
     argument_parser.add_argument("--no-include-robot-libraries", action='store_false', help="Does not include robot framework libraries which come with robot.libraries")
