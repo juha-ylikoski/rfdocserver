@@ -257,12 +257,14 @@ def main():
 
     if args.debug:
         logging.basicConfig(level=logging.DEBUG, format='%(asctime)-15s %(levelname)s %(message)s')
+    else:
+        logging.basicConfig(level=logging.INFO, format='%(asctime)-15s %(levelname)s %(message)s')
 
     if args.include:
         include = args.include.split(",")
     else:
         include = []
-    create_app(args.robot_files, debug=True, include_robot_libraries=args.no_include_robot_libraries, include=include, no_cache=args.no_cache)
+    create_app(args.robot_files, debug=args.debug, include_robot_libraries=args.no_include_robot_libraries, include=include, no_cache=args.no_cache)
 
 if __name__ == "__main__":
     main()
