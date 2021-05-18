@@ -101,7 +101,7 @@ class RF_doc_server:
     @property
     def index(self):
         if self.directory:
-            index = document_generator.recursively_find_files([".robot", ".py"], [".pyc"], self.directory)
+            index = document_generator.recursively_find_files([".robot", ".resource", ".py"], [".pyc"], self.directory)
         else:
             index = []
         if self._include_robot_libraries:
